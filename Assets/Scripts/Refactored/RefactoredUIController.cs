@@ -4,5 +4,30 @@ using UnityEngine;
 
 public class RefactoredUIController : UIControllerBase
 {
-    protected override GameControllerBase GameController => throw new System.NotImplementedException();
+    private void Start()
+    {
+        RefactoredGameController.Instance.OnGameOver += HandleGameOver;
+        RefactoredGameController.Instance.OnShot += HandleShot;
+
+    }
+
+    private void HandleGameOver()
+    {
+        gameOverGroup?.SetActive(true);
+
+    }
+
+    private void HandleShot()
+    {
+        if (shotsCountLabel != null)
+        {
+            shotsCountLabel.text = RefactoredGameController.Instance.RemainingArrows.ToString();
+
+        }
+
+        if (scoreCountLabel != null)
+        {
+            scoreCountLabel.text = RefactoredGameController.Instance.Score.ToString();
+        }
+    }
 }
